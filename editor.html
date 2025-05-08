@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Editor Page</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header button {
+      padding: 10px 20px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card label {
+      display: block;
+      margin: 10px 0 4px;
+    }
+
+    .card input, .card textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .event {
+      margin-top: 10px;
+      padding: 10px;
+      background: #eee;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .event button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="connectBtn">Connect Silas</button>
+    <h1>Editor Page</h1>
+    <button id="sendBtn">Send</button>
+  </header>
+
+  <div class="content">
+    <div class="card">
+      <h2>Memory</h2>
+      <label>Your name</label>
+      <input id="yourName" type="text" />
+      <label>Tell Silas about you</label>
+      <textarea id="aboutYou" rows="3"></textarea>
+      <label>Something else?</label>
+      <textarea id="otherMemory" rows="2"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>Events</h2>
+      <label>Name of the event</label>
+      <input id="eventName" type="text" />
+      <label>Time of the event</label>
+      <input id="eventTime" type="text" />
+      <label>Something else?</label>
+      <input id="eventOther" type="text" />
+      <button onclick="addEvent()">Add Event</button>
+
+      <div id="eventList"></div>
+    </div>
+  </div>
+
+  <script>
+    let port;
+    let writer;
+
+    document.getElementById("connectBtn").addEventListener("click", async () => {
+      try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 9600 });
+        const encoder = new TextEncoderStream();
+        encoder.readable.pipeTo(port.writable);
+        writer = encoder.writable.getWriter();
+        alert("Connected to Silas");
+      } catch (err) {
+        console.error("Connection failed:", err);
+        alert("Failed to connect to Silas");
+      }
+    });
+
+    document.getElementById("sendBtn").addEventListener("click", async () => {
+      if (!writer) {
+        alert("Please connect first");
+        return;
+      }
+
+      const name = document.getElementById("yourName").value.trim();
+      const about = document.getElementById("aboutYou").value.trim();
+      const other = document.getElementById("otherMemory").value.trim();
+
+      let textToSend = `Memory:\nName: ${name}\nAbout: ${about}\nOther: ${other}\n\nEvents:\n`;
+
+      document.querySelectorAll(".event").forEach(div => {
+        const line = div.querySelector("span").textContent;
+        textToSend += `- ${line}\n`;
+      });
+
+      try {
+        await writer.write(textToSend + "\n");
+        alert("Data sent to Silas");
+      } catch (err) {
+        console.error("Sending failed:", err);
+        alert("Failed to send data");
+      }
+    });
+
+    function addEvent() {
+      const name = document.getElementById("eventName").value.trim();
+      const time = document.getElementById("eventTime").value.trim();
+      const other = document.getElementById("eventOther").value.trim();
+      if (!name && !time && !other) return;
+
+      const text = `${name} at ${time} - ${other}`;
+      const eventList = document.getElementById("eventList");
+
+      const div = document.createElement("div");
+      div.className = "event";
+
+      const span = document.createElement("span");
+      span.textContent = text;
+
+      const btn = document.createElement("button");
+      btn.textContent = "Delete";
+      btn.onclick = () => div.remove();
+
+      div.appendChild(span);
+      div.appendChild(btn);
+      eventList.appendChild(div);
+
+      // Clear inputs
+      document.getElementById("eventName").value = "";
+      document.getElementById("eventTime").value = "";
+      document.getElementById("eventOther").value = "";
+    }
+  </script>
+</body>
+</html>
