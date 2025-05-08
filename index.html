@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRP</title>
+  <style>
+    /* Global Style */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      color: #444;
+    }
+
+    /* Header Style */
+    header {
+      background-color: #292b2c;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header a {
+      color: white;
+      margin: 0 25px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    header a:hover {
+      color: #ffa600;
+    }
+
+    /* Main Content */
+    .content {
+      padding: 50px 12%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Section Title */
+    h2 {
+      text-align: center;
+      color: #292b2c;
+      margin-bottom: 40px;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    /* Card Container */
+    .cards {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 50px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      width: 100%;
+    }
+
+    /* Card Style */
+    .card {
+      background-color: #ffffff;
+      padding: 35px;
+      width: 300px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e1e4e8;
+    }
+
+    .card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      font-size: 24px;
+      color: #292b2c;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .card strong {
+      color: #292b2c;
+    }
+
+    /* Footer Style */
+    footer {
+      background-color: #292b2c;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="contact.html">Contact</a>
+    <a href="editor.html">Start Editing</a> <!-- הקישור המעודכן -->
+    <a href="#">Buy</a>
+  </header>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h2>Meet Silas: Your Friendly Device</h2>
+
+    <div class="cards">
+      <!-- Specs Card -->
+      <div class="card">
+        <h3>Specs</h3>
+        <p><strong>Battery:</strong> 2x500mah - Dual battery setup for extended life.</p>
+        <p><strong>Display:</strong> OLED 0.96" - High contrast display that's easy on the eyes, even in low light.</p>
+        <p><strong>Processor:</strong> ATmega328 - A powerful, efficient processor for consistent performance.</p>
+        <p>This is the hardware that powers Silas: compact yet powerful, it ensures a smooth user experience with longevity and reliability.</p>
+      </div>
+
+      <!-- How? Card -->
+      <div class="card">
+        <h3>How?</h3>
+        <p>Turn on your Silas by simply pressing the power button. Once powered, you can personalize it by visiting our website, where you can adjust settings and preferences to match your style.</p>
+        <p>Silas will use its AI to learn your habits and preferences, tailoring its responses to suit your needs.</p>
+        <p>As you interact with Silas, it gets smarter, making each conversation more engaging and personal.</p>
+      </div>
+
+      <!-- Silas Card -->
+      <div class="card">
+        <h3>Silas</h3>
+        <p>Silas is a tiny, adorable device designed to fit in the palm of your hand. With its friendly face, it talks to you and makes your day better.</p>
+        <p>Built with advanced AI, Silas can learn your preferences, offer helpful suggestions, and even just keep you company when you need it.</p>
+        <p>It’s more than just a gadget; Silas is a companion that evolves with you, adding joy to your daily routine.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Silas. All rights reserved.
+  </footer>
+
+</body>
+</html>
