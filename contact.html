@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us</title>
   <style>
     /* Global Style */
@@ -12,6 +12,9 @@
       margin: 0;
       padding: 0;
       color: #444;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -22,6 +25,7 @@
       border-bottom-left-radius: 30px;
       border-bottom-right-radius: 30px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.2s ease-out;
     }
 
     header h1 {
@@ -30,14 +34,32 @@
       font-weight: 600;
     }
 
-    /* Form Container */
+    /* Page Content Centering */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* Contact Card */
     .contact-form {
-      padding: 60px 20%;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: slideUpFade 1.2s ease-out 0.3s forwards;
+      width: 100%;
       max-width: 700px;
-      margin: 40px auto;
       background-color: #ffffff;
       border-radius: 20px;
       box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+      padding: 60px 10%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-form:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 35px rgba(0, 0, 0, 0.15);
     }
 
     h2 {
@@ -50,7 +72,13 @@
 
     .form-group {
       margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 0.8s ease-out forwards;
     }
+
+    .form-group:nth-child(1) { animation-delay: 0.5s; }
+    .form-group:nth-child(2) { animation-delay: 0.7s; }
 
     label {
       font-size: 18px;
@@ -67,12 +95,13 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
       margin-bottom: 18px;
-      transition: border-color 0.3s ease-in-out;
+      transition: border-color 0.3s ease-in-out, transform 0.2s ease;
     }
 
     input[type="email"]:focus, textarea:focus {
       border-color: #FFD700;
       outline: none;
+      transform: scale(1.02);
     }
 
     textarea {
@@ -89,17 +118,31 @@
       border-radius: 10px;
       cursor: pointer;
       width: 100%;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      animation: fadeIn 0.8s ease-out 0.9s forwards;
+      opacity: 0;
     }
 
     button:hover {
-      background-color: #FFD700;
+      background-color: #ffc369;
+      color: #292b2c;
+      transform: scale(1.02);
     }
 
-    /* Mobile Responsiveness */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile */
     @media screen and (max-width: 768px) {
       .contact-form {
-        padding: 40px 10%;
+        padding: 40px 8%;
       }
 
       header h1 {
@@ -119,21 +162,23 @@
     <h1>Contact Us</h1>
   </header>
 
-  <!-- Contact Form -->
-  <div class="contact-form">
-    <h2>We'd love to hear from you!</h2>
-    <form action="https://formspree.io/f/manoepwq" method="POST">
-      <div class="form-group">
-        <label for="email">Your Email:</label>
-        <input type="email" name="email" id="email" required placeholder="Enter your email">
-      </div>
-      <div class="form-group">
-        <label for="message">Your Message:</label>
-        <textarea name="message" id="message" required placeholder="Write your message here..."></textarea>
-      </div>
-      <button type="submit">Send</button>
-    </form>
-  </div>
+  <!-- Centered Main Area -->
+  <main>
+    <div class="contact-form">
+      <h2>We'd love to hear from you!</h2>
+      <form action="https://formspree.io/f/manoepwq" method="POST">
+        <div class="form-group">
+          <label for="email">Your Email:</label>
+          <input type="email" name="email" id="email" required placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message:</label>
+          <textarea name="message" id="message" required placeholder="Write your message here..."></textarea>
+        </div>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </main>
 
 </body>
 </html>
